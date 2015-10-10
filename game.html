@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="Prateek Kumar, IITH">
+        <title>Tic Tac Toe</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+$(document).ready(function(){
+    alert('This is a Tic Tac Toe game for two players.');
+    var p1 = prompt('Enter name of player 1 : ', 'PLAYER 1');
+    var p2 = prompt('Enter name of player 2 : ', 'PLAYER 2');
+    var pt;
+    while (p1 == p2) {
+       alert('Both players cannot have same name.');
+       var p1 = prompt('Enter name of player 1 : ', 'PLAYER 1');
+       var p2 = prompt('Enter name of player 2 : ', 'PLAYER 2');
+    }
+    alert('Do not refresh the browser during the game or else your game will be lost.');
+    $('#p1').html(p1+'<br>x');
+    $('#p2').html(p2+'<br>o');
+    function turn(a) {
+        a.css('background-color', 'green');
+        a.css('color', 'white');
+        pt = a;
+    }
+    function unturn(a) {
+        a.css('background-color', 'white');
+        a.css('color', 'black');
+    }
+    turn($("#p1"));
+    function checkComb(a) {
+        var q = a.attr('id');
+        var c = q.charAt(0);
+        var r = q.charAt(1);
+        var madeComb = 0;
+        if ($("#11").html() != '' && $("#22").html() != '' && $("#33").html() != '' && $("#11").html() == $("#22").html() && $("#22").html() == $("#33").html()) {
+            madeComb = 1;
+            $("#11").css('background-color', 'red');
+            $("#11").css('color', 'white');
+            $("#22").css('background-color', 'red');
+            $("#22").css('color', 'white');
+            $("#33").css('background-color', 'red');
+            $("#33").css('color', 'white');
+        }
+        if ($("#31").html() != '' && $("#22").html() != '' && $("#13").html() != '' && $("#31").html() == $("#22").html() && $("#22").html() == $("#13").html()) {
+            madeComb = 1;
+            $("#31").css('background-color', 'red');
+            $("#31").css('color', 'white');
+            $("#22").css('background-color', 'red');
+            $("#22").css('color', 'white');
+            $("#13").css('background-color', 'red');
+            $("#13").css('color', 'white');
+        }
+        if ($("#"+c+"1").html() != '' && $("#"+c+"2").html() != '' && $("#"+c+"3").html() != '' && $("#"+c+"1").html() == $("#"+c+"2").html() && $("#"+c+"2").html() == $("#"+c+"3").html()) {
+            madeComb = 1;
+            $("#"+c+"1").css('background-color', 'red');
+            $("#"+c+"1").css('color', 'white');
+            $("#"+c+"2").css('background-color', 'red');
+            $("#"+c+"2").css('color', 'white');
+            $("#"+c+"3").css('background-color', 'red');
+            $("#"+c+"3").css('color', 'white');
+        }
+        if ($("#1"+r).html() != '' && $("#2"+r).html() != '' && $("#3"+r).html() != '' && $("#1"+r).html() == $("#2"+r).html() && $("#2"+r).html() == $("#3"+r).html()) {
+            madeComb = 1;
+            $("#1"+r).css('background-color', 'red');
+            $("#1"+r).css('color', 'white');
+            $("#2"+r).css('background-color', 'red');
+            $("#2"+r).css('color', 'white');
+            $("#3"+r).css('background-color', 'red');
+            $("#3"+r).css('color', 'white');
+        }
+        return madeComb;
+    }
+    function play(a) {
+        a.click(function(){
+            var x = a.html();
+            if (x == '') {
+                var y = pt.html();
+                var q = y.charAt(y.length - 1);
+                a.html(q);
+                var cc = checkComb(a);
+                if ( cc == 0 ) {
+                    if (q == 'x') {
+                        turn($("#p2"));
+                        unturn($("#p1"));
+                    }
+                    if (q == 'o') {
+                        turn($("#p1"));
+                        unturn($("#p2"));
+                    }
+                } else {
+                    if (q == 'x') {
+                        alert(p1+" won!");
+                    }
+                    if (q == 'o') {
+                        alert(p2+" won!");
+                    }
+                    pt = '';
+                }
+            } else {
+            }
+        });
+    }
+    play($("#11"));
+    play($("#12"));
+    play($("#13"));
+    play($("#21"));
+    play($("#22"));
+    play($("#23"));
+    play($("#31"));
+    play($("#32"));
+    play($("#33"));
+});
+        </script>
+        <style>
+            body {
+                font-family: verdana;
+                text-align: center;
+            }
+            table {
+                border:2px blue solid;
+                height:450px;
+                width:900px;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            td {
+                width:180px;
+                height:150px;
+                border:2px green solid;
+                text-align: center;
+                font-size: 100px;
+            }
+            #p1, #p2 {
+                font-size: 25px;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>Either your browser doesnot supports javascipt or it is turnre off. Please turn on. This game works with Javascript.</noscript>
+        <table>
+            <caption><h1>Tic Tac Toe</h1></caption>
+            <tr>
+                <td id="p1" rowspan="3"></td>
+                <td id="11"></td>
+                <td id="21"></td>
+                <td id="31"></td>
+                <td id="p2" rowspan="3"></td>
+            </tr>
+            <tr>
+                <td id="12"></td>
+                <td id="22"></td>
+                <td id="32"></td>
+            </tr>
+            <tr>
+                <td id="13"></td>
+                <td id="23"></td>
+                <td id="33"></td>
+            </tr>
+        </table>
+    </body>
+</html>
